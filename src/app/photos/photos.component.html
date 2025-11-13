@@ -1,0 +1,70 @@
+<h2>Gestion de Fotos API: jsonplaceholder.typicode.com/photos</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Album ID</th>
+      <th>Titulo</th>
+      <th>Miniatura</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of list">
+      <td>{{ p.id }}</td>
+      <td>{{ p.albumId }}</td>
+      <td>{{ p.title }}</td>
+      <td>
+        <img [src]="p.thumbnailUrl" alt="{{ p.title }}" width="50" height="50">
+      </td>
+      <td>
+        <button (click)="openModal(p)">Editar</button>
+        <button (click)="delete(p.id!)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>Nuevo:</td>
+      <td>
+        <input type="number" [(ngModel)]="newItem.albumId" placeholder="Album ID">
+      </td>
+      <td>
+        <input [(ngModel)]="newItem.title" placeholder="Titulo">
+      </td>
+      <td>
+        <input [(ngModel)]="newItem.thumbnailUrl" placeholder="URL Miniatura"> 
+      </td>
+      <td>
+        <button (click)="add()">Agregar</button>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <h3>Editar Foto ID: {{ temp.id }}</h3>
+
+    <label>ID</label>
+    <input [(ngModel)]="temp.id" readonly>
+    
+    <label>Album ID</label>
+    <input type="number" [(ngModel)]="temp.albumId" placeholder="ID de Album">
+
+    <label>Titulo</label>
+    <input [(ngModel)]="temp.title" placeholder="Titulo de la foto">
+
+    <label>URL Completa</label>
+    <input [(ngModel)]="temp.url" placeholder="URL de la imagen">
+    
+    <label>URL Miniatura</label>
+    <input [(ngModel)]="temp.thumbnailUrl" placeholder="URL de la miniatura">
+
+    <div class="modal-actions">
+      <button (click)="save()">Guardar Cambios</button>
+      <button (click)="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
